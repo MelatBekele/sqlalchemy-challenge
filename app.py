@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import sqlalchemy
 
+
+
 from flask import Flask, jsonify
 from sqlalchemy import create_engine, func
 
@@ -11,7 +13,7 @@ import datetime as dt
 
 from datetime import timedelta
 
-engine = create_engine("sqlite:///titanic.sqlite")
+engine  = create_engine("sqlite:///Resources/hawaii.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
@@ -45,10 +47,10 @@ def percipitation():
 
 @app.route("/api/v1.0/stations")
 def stations():
-session  = Session(engine)
-  stations_results = session.query(Station.station, Station.name).all()
-  return jsonify(stations_results)
-
+    session  = Session(engine)
+    stations_results = session.query(Station.station, Station.name).all()
+    return jsonify(stations_results)
+    session.close()
 
 @app.route("/api/v1.0/tobs")
 
